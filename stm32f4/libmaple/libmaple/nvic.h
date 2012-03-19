@@ -83,6 +83,7 @@ typedef struct nvic_reg_map {
  *
  * @see scb.h
  */
+#ifndef STM32L1
 typedef enum nvic_irq_num {
     NVIC_NMI            = -14,  /**< Non-maskable interrupt */
     NVIC_HARDFAULT      = -13,  /**< Hard fault (all class of fault) */
@@ -159,6 +160,69 @@ typedef enum nvic_irq_num {
     NVIC_DMA2_CH_4_5    = 59,   /**< DMA2 channels 4 and 5 */
 #endif
 } nvic_irq_num;
+
+#else	// STM32L1
+typedef enum nvic_irq_num {
+    NVIC_NMI            = -14,  /**< Non-maskable interrupt */
+    NVIC_HARDFAULT      = -13,  /**< Hard fault (all class of fault) */
+    NVIC_MEM_MANAGE     = -12,  /**< Memory management */
+    NVIC_BUS_FAULT      = -11,  /**< Bus fault: prefetch fault, memory
+                                     access fault. */
+    NVIC_USAGE_FAULT    = -10,  /**< Usage fault: Undefined instruction or
+                                     illegal state. */
+    NVIC_SVC            = -5,   /**< System service call via SWI insruction */
+    NVIC_DEBUG_MON      = -4,   /**< Debug monitor */
+    NVIC_PEND_SVC       = -2,   /**< Pendable request for system service */
+    NVIC_SYSTICK        = -1,   /**< System tick timer */
+    NVIC_WWDG           = 0,    /**< Window watchdog interrupt */
+    NVIC_PVD            = 1,    /**< PVD through EXTI line detection */
+    NVIC_TAMPER         = 2,    /**< Tamper */
+    NVIC_RTC_WKUP       = 3,    /**< Real-time clock */
+    NVIC_FLASH          = 4,    /**< Flash */
+    NVIC_RCC            = 5,    /**< Reset and clock control */
+    NVIC_EXTI0          = 6,    /**< EXTI line 0 */
+    NVIC_EXTI1          = 7,    /**< EXTI line 1 */
+    NVIC_EXTI2          = 8,    /**< EXTI line 2 */
+    NVIC_EXTI3          = 9,    /**< EXTI line 3 */
+    NVIC_EXTI4          = 10,   /**< EXTI line 4 */
+    NVIC_DMA_CH1        = 11,   /**< DMA1 channel 1 */
+    NVIC_DMA_CH2        = 12,   /**< DMA1 channel 2 */
+    NVIC_DMA_CH3        = 13,   /**< DMA1 channel 3 */
+    NVIC_DMA_CH4        = 14,   /**< DMA1 channel 4 */
+    NVIC_DMA_CH5        = 15,   /**< DMA1 channel 5 */
+    NVIC_DMA_CH6        = 16,   /**< DMA1 channel 6 */
+    NVIC_DMA_CH7        = 17,   /**< DMA1 channel 7 */
+    NVIC_ADC_1          = 18,   /**< ADC1 */
+    NVIC_USB_HP         = 19,   /**< USB high priority */
+    NVIC_USB_LP         = 20,   /**< USB low priority */
+    NVIC_DAC            = 21,   /**< DAC */
+    NVIC_COMP           = 22,   /**< Comparator wakeup through EXTI
+    								(21 and 22) interrupt */
+    NVIC_EXTI_9_5       = 23,   /**< EXTI line [9:5] */
+    NVIC_LCD            = 24,   /**< LCD */
+    NVIC_TIMER9         = 25,   /**< Timer 9 */
+    NVIC_TIMER10        = 26,   /**< Timer 10 */
+    NVIC_TIMER11        = 27,   /**< Timer 11 */
+    NVIC_TIMER2         = 28,   /**< Timer 2 */
+    NVIC_TIMER3         = 29,   /**< Timer 3 */
+    NVIC_TIMER4         = 30,   /**< Timer 4 */
+    NVIC_I2C1_EV        = 31,   /**< I2C1 event */
+    NVIC_I2C1_ER        = 32,   /**< I2C1 error */
+    NVIC_I2C2_EV        = 33,   /**< I2C2 event */
+    NVIC_I2C2_ER        = 34,   /**< I2C2 error */
+    NVIC_SPI1           = 35,   /**< SPI1 */
+    NVIC_SPI2           = 36,   /**< SPI2 */
+    NVIC_USART1         = 37,   /**< USART1 */
+    NVIC_USART2         = 38,   /**< USART2 */
+    NVIC_USART3         = 39,   /**< USART3 */
+    NVIC_EXTI_15_10     = 40,   /**< EXTI line [15:10] */
+    NVIC_RTCALARM       = 41,   /**< RTC alarm through EXTI line */
+    NVIC_USBWAKEUP      = 42,   /**< USB wakeup from suspend through
+                                     EXTI line */
+    NVIC_TIMER6         = 43,   /**< Timer 6 */
+    NVIC_TIMER7         = 44,   /**< Timer 7 */
+} nvic_irq_num;
+#endif
 
 /*
  * Initialises the interrupt controller and sets all interrupts to the
