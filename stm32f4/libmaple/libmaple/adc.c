@@ -48,12 +48,14 @@ static adc_dev adc1 = {
 /** ADC1 device. */
 const adc_dev *ADC1 = &adc1;
 
+#ifndef STM32L1
 static adc_dev adc2 = {
     .regs   = ADC2_BASE,
     .clk_id = RCC_ADC2
 };
 /** ADC2 device. */
 const adc_dev *ADC2 = &adc2;
+#endif
 
 #ifdef STM32_HIGH_DENSITY
 adc_dev adc3 = {
@@ -117,19 +119,35 @@ void adc_foreach(void (*fn)(const adc_dev*)) {
  */
 void adc_set_sample_rate(const adc_dev *dev, adc_smp_rate smp_rate) {
     uint32 adc_smpr1_val = 0, adc_smpr2_val = 0;
+#ifdef STM32L1
+    adc_smpr3_val = 0;
+#endif
     int i;
-
+#ifdef STM32L1
+    int smpr1_len = 6;
+#else
+    int smpr1_len = 8;
+#endif
     for (i = 0; i < 10; i++) {
-        if (i < 8) {
-            /* ADC_SMPR1 determines sample time for channels [10,17] */
+        if (i < smpr1_len) {
+            /* ADC_SMPR1 determines sample time for channels [10,17] on STM32F,
+             * channels [20,25] on STM32L */
             adc_smpr1_val |= smp_rate << (i * 3);
         }
-        /* ADC_SMPR2 determines sample time for channels [0,9] */
+        /* ADC_SMPR2 determines sample time for channels [0,9] on STM32F,
+         * channels [10,19] on STM32L */
         adc_smpr2_val |= smp_rate << (i * 3);
+#ifdef STM32L1
+        /* ADC_SMP3 determines sample time for channels [0,9] on STM32L */
+        adc_smpr3_val |= smp_rate << (i * 3);
+#endif
     }
 
     dev->regs->SMPR1 = adc_smpr1_val;
     dev->regs->SMPR2 = adc_smpr2_val;
+#ifdef STM32L1
+    dev->regs->SMPR3 = adc_smpr3_val;
+#endif
 }
 
 /**
