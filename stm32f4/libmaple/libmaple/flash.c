@@ -37,7 +37,11 @@
  * @brief Turn on the hardware prefetcher.
  */
 void flash_enable_prefetch(void) {
+#ifndef STM32L1
     *bb_perip(&FLASH_BASE->ACR, FLASH_ACR_PRFTBE_BIT) = 1;
+#else
+    *bb_perip(&FLASH_BASE->ACR, FLASH_ACR_PRFTEN_BIT) = 1;
+#endif
 }
 
 /**
@@ -48,7 +52,8 @@ void flash_enable_prefetch(void) {
  *
  * @param wait_states number of wait states (one of
  *                    FLASH_WAIT_STATE_0, FLASH_WAIT_STATE_1,
- *                    FLASH_WAIT_STATE_2).
+ *                    FLASH_WAIT_STATE_2). Note that FLASH_WAIT_STATE_2
+ *                    is not available on the STM32L1.
  */
 void flash_set_latency(uint32 wait_states) {
     uint32 val = FLASH_BASE->ACR;
