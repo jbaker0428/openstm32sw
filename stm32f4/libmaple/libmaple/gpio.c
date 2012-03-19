@@ -31,6 +31,8 @@
 
 #ifdef STM32F2
 #include "gpioF2.c"
+#elif defined(STM32L1)
+#include "gpioL1.c"
 #else
 #include "gpioF1.c"
 #endif
