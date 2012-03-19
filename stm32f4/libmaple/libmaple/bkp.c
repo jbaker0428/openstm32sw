@@ -34,6 +34,7 @@
 #include "rcc.h"
 #include "bitband.h"
 
+#ifndef STM32L1
 static inline __io uint32* data_register(uint8 reg);
 
 bkp_dev bkp = {
@@ -127,3 +128,5 @@ static inline __io uint32* data_register(uint8 reg) {
     }
 #endif
 }
+
+#endif

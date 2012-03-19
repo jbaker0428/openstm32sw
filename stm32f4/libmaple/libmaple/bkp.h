@@ -38,6 +38,8 @@
 extern "C" {
 #endif
 
+#ifndef STM32L1
+
 #if defined(STM32_MEDIUM_DENSITY)
 #define BKP_NR_DATA_REGS 10
 #elif defined(STM32_HIGH_DENSITY)
@@ -158,6 +160,8 @@ void bkp_enable_writes(void);
 void bkp_disable_writes(void);
 uint16 bkp_read(uint8 reg);
 void bkp_write(uint8 reg, uint16 val);
+
+#endif
 
 #ifdef __cplusplus
 } /* extern "C" */
