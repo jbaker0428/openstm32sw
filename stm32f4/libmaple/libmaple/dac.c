@@ -33,7 +33,7 @@
 #include "gpio.h"
 #include "dac.h"
 
-#ifdef STM32_HIGH_DENSITY
+#if defined(STM32_HIGH_DENSITY) || defined(STM32L1)
 
 /**
  * @brief DAC peripheral routines.

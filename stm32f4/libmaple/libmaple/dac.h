@@ -97,6 +97,9 @@ extern const dac_dev *DAC;
 #define DAC_CR_WAVE1             (0x3 << 6) /* Noise/triangle wave enable */
 #define DAC_CR_MAMP1             (0xF << 8) /* Mask/amplitude selector */
 #define DAC_CR_DMAEN1               BIT(12) /* DMA enable */
+#ifdef STM32L1
+#define DAC_CR_DMAUDRIE1			BIT(13) /* DMA underrun interrupt enable */
+#endif
 /* Channel 2 control */
 #define DAC_CR_EN2                  BIT(16) /* Enable */
 #define DAC_CR_BOFF2                BIT(17) /* Output buffer disable */
@@ -105,6 +108,9 @@ extern const dac_dev *DAC;
 #define DAC_CR_WAVE2            (0x3 << 22) /* Noise/triangle wave generation*/
 #define DAC_CR_MAMP2            (0xF << 24) /* Mask/amplitude selector */
 #define DAC_CR_DMAEN2               BIT(28) /* DMA enable */
+#ifdef STM32L1
+#define DAC_CR_DMAUDRIE2			BIT(29) /* DMA underrun interrupt enable */
+#endif
 
 /* Software trigger register */
 #define DAC_SWTRIGR_SWTRIG1          BIT(0) /* Channel 1 software trigger */
