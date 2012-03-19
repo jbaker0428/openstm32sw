@@ -55,7 +55,11 @@
 #endif
 
 #ifndef STM32_PCLK1
-#define STM32_PCLK1   36000000U
+	#ifndef STM32L1
+	#define STM32_PCLK1   36000000U
+	#else
+	#define STM32_PCLK1   32000000U
+	#endif
 #endif
 #ifndef PCLK1
 #define PCLK1 STM32_PCLK1
@@ -65,7 +69,11 @@
 #endif
 
 #ifndef STM32_PCLK2
-#define STM32_PCLK2   72000000U
+	#ifndef STM32L1
+	#define STM32_PCLK2   72000000U
+	#else
+	#define STM32_PCLK2   32000000U
+	#endif
 #endif
 #ifndef PCLK2
 #define PCLK2 STM32_PCLK2
@@ -98,6 +106,8 @@
     #define STM32_NR_INTERRUPTS 43
 #elif defined(STM32_HIGH_DENSITY)
     #define STM32_NR_INTERRUPTS 60
+#elif defined(STM32L1)
+	#define STM32_NR_INTERRUPTS 45
 #else
 #error "No STM32 board type defined!"
 #endif
@@ -208,6 +218,18 @@
 
     #define NR_GPIO_PORTS               STM32_NR_GPIO_PORTS
     #define DELAY_US_MULT               STM32_DELAY_US_MULT
+
+#elif defined(MCU_STM32L151VB)
+	/* e.g., Unified Robotics Development Board */
+	#define STM32_TICKS_PER_US          32
+	#define STM32_NR_GPIO_PORTS          5
+	#define STM32_DELAY_US_MULT         (STM32_TICKS_PER_US/3)
+	#define STM32_SRAM_END              ((void*)0x20004000)
+
+	#define NR_GPIO_PORTS               STM32_NR_GPIO_PORTS
+	#define DELAY_US_MULT               STM32_DELAY_US_MULT
+#else
+
 
 #else
 
