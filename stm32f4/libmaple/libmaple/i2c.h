@@ -118,8 +118,16 @@ extern i2c_dev* const I2C2;
 #define I2C_CR1_PEC             BIT(12)       // Packet error checking
 #define I2C_CR1_POS             BIT(11)       // Acknowledge/PEC position
 #define I2C_CR1_ACK             BIT(10)       // Acknowledge enable
-#define I2C_CR1_START           BIT(8)        // Start generation
 #define I2C_CR1_STOP            BIT(9)        // Stop generation
+#define I2C_CR1_START           BIT(8)        // Start generation
+#ifdef STM32L1
+#define I2C_CR1_NOSTRETCH		BIT(7)		  // Clock stretching disable
+#define I2C_CR1_ENGC			BIT(6)		  // General call enable
+#define I2C_CR1_ENPEC			BIT(5)		  // PEC enable
+#define I2C_CR1_ENARP			BIT(4)		  // ARP enable
+#define I2C_CR1_SMBTYPE			BIT(3)		  // SMBus type
+#define I2C_CR1_SMBUS			BIT(1)		  // SMBus mode
+#endif
 #define I2C_CR1_PE              BIT(0)        // Peripheral Enable
 
 /* Control register 2 */
